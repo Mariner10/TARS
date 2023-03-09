@@ -1,5 +1,6 @@
 import imaplib, email
-from constants import gmail_user,gmail_RECEIVING_appPass,SMS_number
+from constants import gmail_user,gmail_RECEIVING_appPass,SMS_number,debug_mode
+
 
 
 
@@ -11,6 +12,7 @@ def thisWholdThingIsAFunction():
     imap_url = 'imap.gmail.com'
     
     # Function to get email content part i.e its body part
+    
     def get_body(msg):
         if msg.is_multipart():
             return get_body(msg.get_payload(0))
@@ -31,20 +33,26 @@ def thisWholdThingIsAFunction():
     
         return msgs
     
+    if debug_mode == True: print("Initializing email fucntions...\n")
+
     # this is done to make SSL connection with GMAIL
     con = imaplib.IMAP4_SSL(imap_url)
     
     # logging the user in
+    if debug_mode == True: print("     |Logging into gmail...")
     con.login(user, password)
     
     # calling function to check for email under this label
+    if debug_mode == True: print("     |Checking Inbox...")
     con.select('Inbox')
     
-    # fetching emails from this user "tu**h*****1@gmail.com"
+    if debug_mode == True: print("     |Searching for " + SMS_number + "...")
     msgs = get_emails(search('FROM', SMS_number, con))
 
     mailCount = len(msgs)
-
+    if debug_mode == True: print("     |Counted " + str(mailCount) + " messages...")
+    
+    if debug_mode == True: print("     |Finding latest email...")
     counter = 0
     for msg in msgs[::-1]:
         for sent in msg:
@@ -73,7 +81,7 @@ def thisWholdThingIsAFunction():
                         phrase = cut2[0]
                         phrase = phrase.strip()
 
-                        
+                        if debug_mode == True: print("     |Found latest email...")
                         counter += 1
                         
         
@@ -81,12 +89,9 @@ def thisWholdThingIsAFunction():
                         pass
 
 
-    msgs = get_emails(search('FROM', SMS_number, con))
-    mailCount = len(msgs)
-
     whyMakeMeDoThis = str(mailCount) + "/|/" + str(phrase)
 
-    
+    if debug_mode == True: print("     |Returning data...")
     return str(whyMakeMeDoThis)
 
 
