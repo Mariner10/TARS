@@ -1,11 +1,11 @@
 import pyttsx3
-from TARS import TARS
+from AI import AI
 
 
 engine = pyttsx3.init()
 engine.setProperty('rate', 225)
 engine.setProperty('volume', 0.7)
-engine.setProperty('voice', 'com.apple.speech.synthesis.voice.Fred')
+engine.setProperty('voice', 'com.apple.speech.synthesis.voice.Daniel')
 
 
 
@@ -15,20 +15,20 @@ while True:
 
     match state:
         case "motion":
-            text = TARS(reminder + "You just detected motion nearby, make a snarky comment about this")
+            text = AI(reminder + "You just detected motion nearby, make a snarky comment about this")
 
         case "sound":
-            text = TARS(reminder + "You just detected a loud noise, make a judgemental comment about this")
+            text = AI(reminder + "You just detected a loud noise, make a judgemental comment about this")
 
         case "light":
-            text = TARS(reminder + "You just detected a change in light levels , make a disturbed comment about this")
+            text = AI(reminder + "You just detected a change in light levels , make a disturbed comment about this")
 
         case "alert":
-            text = TARS(reminder + "You just got a remote alert, make a snide comment about this")
+            text = AI(reminder + "You just got a remote alert, make a snide comment about this")
 
         case _:
             query = reminder + input("  | ")
-            text = TARS(query)
+            text = AI(query)
 
     engine.say(text)
     engine.runAndWait()
