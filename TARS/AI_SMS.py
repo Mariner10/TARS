@@ -24,27 +24,35 @@ def sendSMS(string):
 if debug_mode == True: print("Getting Mail details...")
 item = thisWholdThingIsAFunction()
 if debug_mode == True: print("\nDone!\n")
-splitedItem = item.split("/|/")
-InitialnumMail = splitedItem[0]
+
+try:
+    splitedItem = item.split("/|/")
+    InitialnumMail = splitedItem[0]
+except AttributeError:
+    InitialnumMail = 0
+
 sendSMS("[Online and ready for requests]")
 if debug_mode == True: print("Setup complete & ready for SMS requests")
 while True:
 
     item = thisWholdThingIsAFunction()
-    splitedItem = item.split("/|/")
-    numMail = splitedItem[0]
+    try:
+        splitedItem = item.split("/|/")
+        numMail = splitedItem[0]
+    except AttributeError:
+        numMail = 0
     
     FinalnumMail = numMail
     
-    if InitialnumMail != FinalnumMail:
+    if int(InitialnumMail) < int(FinalnumMail):
         query = splitedItem[1]
         if "Override:" in query:
             if debug_mode == True: print("|Override Request|")
             if "restart" in query:
                 sendSMS("Restarting as per request...")
                 if debug_mode == True: print("Restarting")
-                if debug_mode == True: print("python3 " + sys.argv[0])
-                os.execl("python3 " + sys.argv[0], "")
+                if debug_mode == True: print(sys.argv[0], sys.argv)
+                os.execl(sys.argv[0], sys.argv[1])
 
             elif "open garage" in query:
                 sendSMS("Opening Garage!")
@@ -57,4 +65,3 @@ while True:
             sendSMS(text)
         
     InitialnumMail = FinalnumMail
-    FinalnumMail = InitialnumMail

@@ -11,15 +11,12 @@ def thisWholdThingIsAFunction():
     password = gmail_RECEIVING_appPass
     imap_url = 'imap.gmail.com'
     
-    # Function to get email content part i.e its body part
-    
     def get_body(msg):
         if msg.is_multipart():
             return get_body(msg.get_payload(0))
         else:
             return msg.get_payload(None, True)
     
-    # Function to search for a key value pair
     def search(key, value, con):
         result, data = con.search(None, key, '"{}"'.format(value))
         return data
@@ -27,7 +24,10 @@ def thisWholdThingIsAFunction():
     # Function to get the list of emails under this label
     def get_emails(result_bytes):
         msgs = [] # all the email data are pushed inside an array
+        simp_counter = 0    # This counter is the sole workaround to mkaing sure the mail count never reaches zero, because then
+                            # the program complains when it tries to parse the text, and ends up coming up with nothing.
         for num in result_bytes[0].split():
+            con.store(num,'+FLAGS','\\Deleted')
             typ, data = con.fetch(num, '(RFC822)')
             msgs.append(data)
     
@@ -75,23 +75,29 @@ def thisWholdThingIsAFunction():
                         # to extract from our email i.e our body
                         
                         htmlData = data2[0: indexend]
+                        if mailCount > 0:
+                            cut1 = htmlData.split("<td>")
+                            cut2 = cut1[1].split("</td>")
+                            phrase = cut2[0]
+                            phrase = phrase.strip()
+                            whyMakeMeDoThis = str(mailCount) + "/|/" + str(phrase)
+                            if debug_mode == True: print("     |Found latest email...")
 
-                        cut1 = htmlData.split("<td>")
-                        cut2 = cut1[1].split("</td>")
-                        phrase = cut2[0]
-                        phrase = phrase.strip()
+                            counter += 1
 
-                        if debug_mode == True: print("     |Found latest email...")
-                        counter += 1
+                            if debug_mode == True: print("     |Returning data...")
+
+                            return str(whyMakeMeDoThis)
+                        else:
+                            pass
+                        
                         
         
                     except UnicodeEncodeError as e:
                         pass
-
-
-    whyMakeMeDoThis = str(mailCount) + "/|/" + str(phrase)
-
-    if debug_mode == True: print("     |Returning data...")
-    return str(whyMakeMeDoThis)
+        
+        break
+    con.expunge()
+    
 
 
