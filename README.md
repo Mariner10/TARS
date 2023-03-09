@@ -10,4 +10,4 @@ Plug and play functionality for actions TARS can do and various methods of commu
 
 ## Setup
 
-You will have to go into the ```constants.py``` file and add all of your imformation for it to work correctly, then run either ```AI_SMS.py``` or ```AI_speak.py``` depending on how you want to communicate with TARS.
+You will have to go into the ```constants.py``` file and add all of your imformation for it to work correctly, then run either ```AI_SMS.py``` or ```AI_speak.py``` (depreciated) depending on how you want to communicate with TARS.
