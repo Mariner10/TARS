@@ -1,8 +1,8 @@
 # AI SMS
 
-AI that can communicate with you over SMS messaging. I created my personal AI SMS into a robot known as TARS.
+AI chatbot based on OpenAI GPT model that can communicate with you over SMS messaging. I created my personal AI SMS into a robot known as TARS.
 
-A Brash and Snarky AI who will converse with you over SMS or even chat with Text-to-speech!
+TARS is a brash and snarky AI who will converse with you over SMS or even chat with text-to-speech!
 
 > _"Oh, just me, a highly advanced and incredibly charming robot. Who were you expecting, Siri?"_
 
