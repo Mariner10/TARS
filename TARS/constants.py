@@ -6,6 +6,7 @@ openAI_ORG = ""
 openAI_privKey = ""
 
 #   Your phone number & carrier you are going to talk to it with.
+# Carrier choices - "att", "tmobile", "verizon", "sprint".
 SMS_number = ''
 mobile_carrier = ''
 
