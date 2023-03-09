@@ -24,8 +24,9 @@ def thisWholdThingIsAFunction():
     # Function to get the list of emails under this label
     def get_emails(result_bytes):
         msgs = [] # all the email data are pushed inside an array
-        simp_counter = 0    # This counter is the sole workaround to mkaing sure the mail count never reaches zero, because then
-                            # the program complains when it tries to parse the text, and ends up coming up with nothing.
+        simp_counter = 0    # This counter -was going to be- the sole workaround to mkaing sure the mail count never reaches zero, because then
+                            #   the program complains when it tries to parse the text, and ends up coming up with nothing. Luckily I did some close
+                            #   reading a discovered I could shuffle a few lines around and get a better result :).
         for num in result_bytes[0].split():
             con.store(num,'+FLAGS','\\Deleted')
             typ, data = con.fetch(num, '(RFC822)')
@@ -50,9 +51,9 @@ def thisWholdThingIsAFunction():
     msgs = get_emails(search('FROM', SMS_number, con))
 
     mailCount = len(msgs)
-    if debug_mode == True: print("     |Counted " + str(mailCount) + " messages...")
+    if debug_mode == True: print("     |Counted " + str(mailCount) + " message(s)...")
     
-    if debug_mode == True: print("     |Finding latest email...")
+    if debug_mode == True: print("     |Checking for new mail...")
     counter = 0
     for msg in msgs[::-1]:
         for sent in msg:
@@ -76,13 +77,13 @@ def thisWholdThingIsAFunction():
                         
                         htmlData = data2[0: indexend]
                         if mailCount > 0:
+                            if debug_mode == True: print("     |Found new mail, processing...")
                             cut1 = htmlData.split("<td>")
                             cut2 = cut1[1].split("</td>")
                             phrase = cut2[0]
                             phrase = phrase.strip()
                             whyMakeMeDoThis = str(mailCount) + "/|/" + str(phrase)
-                            if debug_mode == True: print("     |Found latest email...")
-
+                    
                             counter += 1
 
                             if debug_mode == True: print("     |Returning data...")
