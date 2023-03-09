@@ -1,3 +1,6 @@
+#   Useful to see text output in terminal for non-background usage or nohup output logging.
+debug_mode = True
+
 #   You are going to need to sign into OpenAI and generate an organisation with a private key for API access.
 openAI_ORG = ""
 openAI_privKey = ""
