@@ -18,7 +18,7 @@ Then go into your device and start by sending a text to the email you used in se
 
 ## AI Personalities
 
-You can look at [info.md](personalities/info.md) for the steps on how to create a custom personality to use with your AI.
+You can look at [info.md](TARS/personalities/info.md) for the steps on how to create a custom personality to use with your AI.
 
 
 
