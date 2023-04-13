@@ -1,7 +1,8 @@
 from AI import AI
 from smsGmail import send_message
 from fetchGmail import thisWholdThingIsAFunction
-from constants import SMS_number,mobile_carrier,debug_mode,AI_Name,your_name,reminder,query,restart_mood,wake_up_mood
+from constants import SMS_number,mobile_carrier,debug_mode
+from active_personality import AI_Name,your_name,reminder,query,restart_mood,wake_up_mood
 import os
 import sys
 
@@ -68,10 +69,32 @@ while True:
                 if debug_mode == True: print(sys.executable, ['python3'] + sys.argv)
                 os.execv(sys.executable, ['python3'] + sys.argv + ['-w'])
 
-            elif "Other action" in query:
-                sendSMS("configurable action!")
+            elif "list personalities" in query:
+                import os
+                path = str(os.path.join(os.path.dirname(os.path.abspath(__file__))))
+                personality_path = path + "/personalities"
+                list = os.listdir(personality_path)
+                sendSMS("Available Personalities:")
+                for persona in list:
+                    sendSMS(persona.split(".py")[0])
+                sendSMS('Change by texting "change personality - <personality>"')
+
+            elif "change personality" in query:
+                personality = query.split(" - ")
+                with open('personalities/' + personality[1] + '.py','r') as firstfile, open('active_personality.py','w') as secondfile:
+                    # read content from first file
+                    for line in firstfile:
+                            
+                            # append content to second file
+                            secondfile.write(line)
+
+                from constants import AI_Name,your_name,reminder,query,restart_mood,wake_up_mood
+                sendSMS(AI(restart_mood))
+                sendSMS("SYSTEM_SHUTDOWN")
+                if debug_mode == True: print("Restarting")
+                if debug_mode == True: print(sys.executable, ['python3'] + sys.argv)
+                os.execv(sys.executable, ['python3'] + sys.argv + ['-w'])
                 
-            
         else:
             print(your_name + "- " + query)
             text = AI(reminder + query)
