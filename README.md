@@ -12,9 +12,13 @@ Plug and play functionality for actions your AI can do and various methods of co
 
 ## Setup
 
-You will have to go into the ```constants.py``` file and add all of your imformation for it to work correctly, then run either ```AI_SMS.py``` or ```AI_speak.py``` (depreciated) depending on how you want to communicate with TARS.
+You will have to go into the ```constants.py``` file and add all of your imformation for it to work correctly, then run either ```AI_SMS.py``` or ```AI_speak.py``` (depreciated) depending on how you want to communicate with the AI.
 
 Then go into your device and start by sending a text to the email you used in setup.
+
+## AI Personalities
+
+You can look at [info.md](personalities/info.md) for the steps on how to create a custom personality to use with your AI.
 
 
 
